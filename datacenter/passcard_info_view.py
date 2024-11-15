@@ -13,12 +13,12 @@ def passcard_info_view(request, passcode):
 
     this_passcard_visits = []
     for visit in person_visits:
-        if visit.leaved_at is None:
-            is_strange = str(is_visit_long(visit.entered_at, minutes_limit=60)) + ' (еще в хранилище)'
-            duration = get_duration(visit.entered_at)
-        else:
+        if visit.leaved_at:
             duration = get_duration(visit.entered_at, leaved_at=visit.leaved_at)
             is_strange = is_visit_long(visit.entered_at, leaved_at=visit.leaved_at, minutes_limit=60)
+        else:
+            is_strange = str(is_visit_long(visit.entered_at, minutes_limit=60)) + ' (еще в хранилище)'
+            duration = get_duration(visit.entered_at)
 
         this_passcard_visits.append(
             {
