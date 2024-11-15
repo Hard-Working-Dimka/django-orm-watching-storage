@@ -8,11 +8,11 @@ from django.shortcuts import get_object_or_404
 
 
 def passcard_info_view(request, passcode):
-    passcard_certain_person = get_object_or_404(Passcard, passcode=passcode)
-    visits_certain_person = Visit.objects.filter(passcard=passcard_certain_person)
+    person_passcard = get_object_or_404(Passcard, passcode=passcode)
+    person_visits = Visit.objects.filter(passcard=person_passcard)
 
     this_passcard_visits = []
-    for visit in visits_certain_person:
+    for visit in person_visits:
         if visit.leaved_at is None:
             is_strange = str(is_visit_long(visit.entered_at, minutes_limit=60)) + ' (еще в хранилище)'
             duration = get_duration(visit.entered_at)
@@ -28,7 +28,7 @@ def passcard_info_view(request, passcode):
             },
         )
     context = {
-        'passcard': passcard_certain_person,
+        'passcard': person_passcard,
         'this_passcard_visits': this_passcard_visits
     }
     return render(request, 'passcard_info.html', context)
