@@ -42,6 +42,8 @@ def is_visit_long(visit_at, leaved_at=localtime(), minutes_limit=60):
 
 
 def format_duration(duration):
-    minutes = (duration % 3600) // 60
-    hours = duration // 3600
+    seconds_per_hour = 3600
+    seconds_per_minute = 60
+    minutes = (duration % seconds_per_hour) // seconds_per_minute
+    hours = duration // seconds_per_hour
     return f'{int(hours)}ч {int(minutes)}мин'
