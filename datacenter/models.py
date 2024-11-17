@@ -40,7 +40,7 @@ def get_duration(visit_at, leaved_at=localtime()):
 
 
 def is_visit_long(visit_at, leaved_at=localtime(), minutes_limit=60):
-    duration_minutes = get_duration(visit_at, leaved_at) // 60
+    duration_minutes = get_duration(visit_at, leaved_at) // SECONDS_PER_MINUTE
     return duration_minutes <= minutes_limit
 
 
